@@ -1,0 +1,57 @@
+mvn clean
+mvn dependency:purge-local-repository -DreResolve=false
+mvn package -DskipTests
+
+mvn clean package -DskipTests
+java -jar product-service-0.0.1-SNAPSHOT.jar
+
+docker builder prune –af
+docker build --no-cache -t minimarket/product-service:1.0.0 .
+
+docker push anovoa1975/ms-jobs-service-cur-000512:3.0.10
+
+docker network create minimarket_net
+
+docker run -d ^
+  --name postgres_minimarket_db ^
+  --network minimarket_net ^
+  -e POSTGRES_DB=product_db ^
+  -e POSTGRES_USER=admin ^
+  -e POSTGRES_PASSWORD=123456 ^
+  -p 5432:5432 ^
+  postgres:16
+
+docker run -d ^
+  --name product-service ^
+  --network minimarket_net ^
+  -p 8081:8081 ^
+  -e "SPRING_R2DBC_URL=r2dbc:postgresql://postgres_minimarket_db:5432/product_db" ^
+  -e SPRING_R2DBC_USERNAME=admin ^
+  -e SPRING_R2DBC_PASSWORD=123456 ^
+  minimarket/product-service:1.0.0
+
+  docker run -d ^
+    --name ms-jobs-service_v1 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8082:8082 ^
+    -e "SPRING_R2DBC_URL=r2dbc:postgresql://postgres_webflux_db_job/job_db" ^
+    -e SPRING_R2DBC_USERNAME=admin ^
+    -e SPRING_R2DBC_PASSWORD=123456 ^
+    anovoa1975/ms-jobs-service-cur-000512:3.0.12
+
+  docker run -d ^
+    --name ms-jobs-service_v1 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8082:8082 ^
+    anovoa1975/ms-jobs-service-cur-000512:3.0.12
+
+
+psql -U admin -d product_db
+
+  docker run -d ^
+    --name ms-jobs-service_v1 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8082:8082 ^
+    anovoa1975/ms-jobs-service-cur-000512:3.0.8
+
+docker inspect ms-jobs-service_v1 --format="{{range .Config.Env}}{{println .}}{{end}}"
