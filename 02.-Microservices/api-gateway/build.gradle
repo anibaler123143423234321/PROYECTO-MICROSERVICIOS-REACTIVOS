@@ -26,8 +26,10 @@ dependencies {
 	implementation 'de.codecentric:spring-boot-admin-starter-client'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-	// Seguridad reactiva (sin Keycloak - solo permitAll)
+	// Seguridad reactiva con Keycloak
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
 	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	

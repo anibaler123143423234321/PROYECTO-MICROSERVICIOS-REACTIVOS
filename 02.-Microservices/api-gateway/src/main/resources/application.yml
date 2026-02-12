@@ -50,6 +50,13 @@ spring:
               filters:
                 - RewritePath=/stock/(?<path>.*), /$\{path}
 
+# Keycloak Integrations
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:5080/realms/rrhh/protocol/openid-connect/certs
+
 management:
   endpoints:
     web:
