@@ -1,4 +1,4 @@
-package pe.edu.galaxy.training.java.ws.api.biblioteca.stock.dto;
+package pe.edu.galaxy.training.java.ws.api.biblioteca.provider.dto;
 
 import lombok.Builder;
 
@@ -9,5 +9,4 @@ public record ProviderResponse(
     String description,
     String phone,
     String email
-) {
-}
+) {}

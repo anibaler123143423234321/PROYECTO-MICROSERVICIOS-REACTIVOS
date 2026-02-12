@@ -72,7 +72,7 @@ public class ProviderClientImpl implements ProviderClient {
         }
         return webClient.get()
                 .uri(uriBuilder -> {
-                    uriBuilder.path("/ids");
+                    uriBuilder.path("/by-ids");
                     ids.forEach(id -> uriBuilder.queryParam("ids", id));
                     return uriBuilder.build();
                 })
