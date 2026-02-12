@@ -1,5 +1,5 @@
 #FROM eclipse-temurin:21-jdk-jammy
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 LABEL build_date="30-01-2026"
 LABEL name="Microservicio de gestión productos"
 LABEL version="1.0.0"
