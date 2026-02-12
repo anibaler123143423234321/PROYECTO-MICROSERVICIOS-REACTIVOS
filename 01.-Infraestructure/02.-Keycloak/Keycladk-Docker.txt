@@ -1,0 +1,1 @@
+docker run --name keycloak_curs_000512_arqmswebflux_dev -p 5080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=123 quay.io/keycloak/keycloak:26.5.1 start-dev

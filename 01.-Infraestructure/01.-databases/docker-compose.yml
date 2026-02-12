@@ -1,0 +1,36 @@
+name: db_stack_minimarket
+
+services:
+  postgres_minimarket_db:
+    image: postgres:16
+    container_name: postgres_minimarket_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db_net
+
+  pgadmin_minimarket:
+    image: dpage/pgadmin4
+    container_name: pgadmin_minimarket_ui
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: anovoa@galaxy.edu.pe
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - "9090:80"
+    depends_on:
+      - postgres_minimarket_db
+    networks:
+      - db_net
+volumes:
+  postgres_data:
+
+networks:
+  db_net:
+    driver: bridge
