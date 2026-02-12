@@ -1,0 +1,26 @@
+package pe.edu.galaxy.training.java.ws.api.biblioteca.commons.exceptions;
+
+public class InventoryServiceException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+	public InventoryServiceException() {
+	}
+
+	public InventoryServiceException(String message) {
+		super(message);
+	}
+
+	public InventoryServiceException(Throwable cause) {
+		super(cause);
+	}
+
+	public InventoryServiceException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public InventoryServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+}
