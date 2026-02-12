@@ -1,0 +1,228 @@
+{
+    "info": {
+        "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "name": "MINIMARKET-API-GATEWAY",
+        "description": "Colección para el API Gateway del proyecto Mini Market (Puerto 8080)",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Gateway",
+            "item": [
+                {
+                    "name": "Actuator Health",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/actuator/health",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "actuator",
+                                "health"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Products (via Gateway)",
+            "item": [
+                {
+                    "name": "Find All Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/products/api/v1/products",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "products",
+                                "api",
+                                "v1",
+                                "products"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Find Product By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/products/api/v1/products/1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "products",
+                                "api",
+                                "v1",
+                                "products",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Categories (via Gateway)",
+            "item": [
+                {
+                    "name": "Find All Categories",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/categories/api/v1/categories/all",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "categories",
+                                "api",
+                                "v1",
+                                "categories",
+                                "all"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Find Category By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/categories/api/v1/categories/1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "categories",
+                                "api",
+                                "v1",
+                                "categories",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Providers (via Gateway)",
+            "item": [
+                {
+                    "name": "Find All Providers",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/providers/api/v1/providers/all",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "providers",
+                                "api",
+                                "v1",
+                                "providers",
+                                "all"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Find Provider By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/providers/api/v1/providers/1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "providers",
+                                "api",
+                                "v1",
+                                "providers",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Stock (via Gateway)",
+            "item": [
+                {
+                    "name": "Find All Stock",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/stock/api/v1/stock",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "stock",
+                                "api",
+                                "v1",
+                                "stock"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Find Stock By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/stock/api/v1/stock/1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "stock",
+                                "api",
+                                "v1",
+                                "stock",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
