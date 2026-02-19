@@ -35,7 +35,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Flux<StockResponse> findAll() {
-        return stockRepository.findByName("")
+        return stockRepository.findAllActive()
                 .collectList()
                 .flatMapMany(items -> {
                     Set<Long> providerIds = items.stream()

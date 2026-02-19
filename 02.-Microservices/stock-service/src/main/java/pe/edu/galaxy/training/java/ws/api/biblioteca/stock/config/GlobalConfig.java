@@ -14,6 +14,11 @@ import java.time.Duration;
 public class GlobalConfig {
 
     @Bean
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
+
+    @Bean
     ObjectMapper objectMapper(){
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

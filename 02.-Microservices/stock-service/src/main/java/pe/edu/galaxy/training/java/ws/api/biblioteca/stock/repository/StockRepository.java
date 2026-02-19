@@ -13,6 +13,9 @@ public interface StockRepository extends ReactiveCrudRepository<StockEntity, Lon
     @Query("SELECT * FROM stock WHERE name ILIKE :name AND state='1'")
     Flux<StockEntity> findByName(String name);
 
+    @Query("SELECT * FROM stock WHERE state='1'")
+    Flux<StockEntity> findAllActive();
+
     @Query("UPDATE stock SET state='0' WHERE stock_id=:id")
     Mono<Void> deleteByIdCustom(Long id);
 }
