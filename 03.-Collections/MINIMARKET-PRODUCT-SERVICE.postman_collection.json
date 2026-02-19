@@ -53,7 +53,7 @@
             "name": "02.-Products",
             "item": [
                 {
-                    "name": "find-all",
+                    "name": "Find All Products",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -75,7 +75,7 @@
                     "response": []
                 },
                 {
-                    "name": "find-by-id",
+                    "name": "Find Product By Id",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -97,7 +97,7 @@
                     "response": []
                 },
                 {
-                    "name": "find-by-name",
+                    "name": "Find Product By Name",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -125,7 +125,7 @@
                     "response": []
                 },
                 {
-                    "name": "save",
+                    "name": "Save Product",
                     "request": {
                         "method": "POST",
                         "header": [],
@@ -155,7 +155,7 @@
                     "response": []
                 },
                 {
-                    "name": "update",
+                    "name": "Update Product",
                     "request": {
                         "method": "PUT",
                         "header": [],
@@ -186,7 +186,7 @@
                     "response": []
                 },
                 {
-                    "name": "delete",
+                    "name": "Delete Product",
                     "request": {
                         "method": "DELETE",
                         "header": [],

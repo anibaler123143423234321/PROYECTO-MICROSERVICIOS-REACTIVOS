@@ -53,7 +53,7 @@
             "name": "02.-Provider",
             "item": [
                 {
-                    "name": "find-all",
+                    "name": "Find All Providers",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -75,7 +75,7 @@
                     "response": []
                 },
                 {
-                    "name": "find-by-id",
+                    "name": "Find Provider By Id",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -97,7 +97,7 @@
                     "response": []
                 },
                 {
-                    "name": "find-by-name",
+                    "name": "Find Provider By Name",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -125,7 +125,7 @@
                     "response": []
                 },
                 {
-                    "name": "find-by-ids",
+                    "name": "Find Providers By Ids",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -153,7 +153,7 @@
                     "response": []
                 },
                 {
-                    "name": "save",
+                    "name": "Save Provider",
                     "request": {
                         "method": "POST",
                         "header": [],
@@ -183,7 +183,7 @@
                     "response": []
                 },
                 {
-                    "name": "update",
+                    "name": "Update Provider",
                     "request": {
                         "method": "PUT",
                         "header": [],
@@ -214,7 +214,7 @@
                     "response": []
                 },
                 {
-                    "name": "delete",
+                    "name": "Delete Provider",
                     "request": {
                         "method": "DELETE",
                         "header": [],
