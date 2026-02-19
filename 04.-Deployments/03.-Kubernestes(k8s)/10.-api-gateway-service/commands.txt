@@ -1,13 +1,20 @@
-kubectl get secrets
-kubectl get configmaps
-kubectl get po
+kubectl apply -f 01.-gateway-configmap.yml
+kubectl apply -f 02.-api-gateway-service-deployment.yaml
+kubectl apply -f 03.-api-gateway-service.yaml
 
-kubectl exec -it pod/job-service-6894f4749f-977k7 -- sh
+kubectl get all -n rrhh
+kubectl get svc -n rrhh
 
-curl http://job-service:8082/api/v1/jobs/all
+# Logs
+kubectl logs deployment/api-gateway -n rrhh -f
 
-kubectl port-forward pod/pod/job-service-6894f4749f-977k7 8082:8082
+# URL Minikube
+# minikube service api-gateway -n rrhh --url
 
-kubectl port-forward pod/pod/job-service-6894f4749f-977k7 -n rrhh 8082:8082
+# Prueba del Endpoint Correcto
+# curl http://<MINIKUBE-IP>:30080/api/v1/products/all
 
-kubectl delete pod -l app=job-service --grace-period=0 --force
+# Limpieza
+# kubectl delete -f 03.-api-gateway-service.yaml
+# kubectl delete -f 02.-api-gateway-service-deployment.yaml
+# kubectl delete -f 01.-gateway-configmap.yml

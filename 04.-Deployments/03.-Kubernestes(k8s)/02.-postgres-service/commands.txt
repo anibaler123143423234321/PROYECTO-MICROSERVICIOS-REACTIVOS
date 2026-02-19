@@ -1,20 +1,40 @@
-kubectl get all
+################################################################################
+# POSTGRESQL KUBERNETES COMMANDS
+################################################################################
+
+# 1. Crear Namespace (si no existe)
+kubectl create namespace rrhh
+
+# 2. Crear ConfigMap para el script de inicializacion
+# (Asegúrate de estar en la carpeta 02.-postgres-service)
+kubectl create configmap postgres-init-script --from-file=04.-script.sql -n rrhh
+
+# 3. Aplicar Secretos, Service y StatefulSet
+kubectl apply -f 01.-postgres-secret.yaml -n rrhh
+kubectl apply -f 03.-postgres-service.yaml -n rrhh
+kubectl apply -f 02.-postgres-statefulset.yaml -n rrhh
+
+# 4. Verificar Estado
 kubectl get all -n rrhh
+kubectl get pvc -n rrhh
 kubectl get secrets -n rrhh
+kubectl get configmaps -n rrhh
 
-kubectl exec -it postgres-0 -n rrhh -- sh
+# 5. Logs del Pod (para ver si corrió el script)
+kubectl logs statefulset/postgres -n rrhh
 
-kubectl exec -it postgres-0 -- sh
-psql -U admin
+# 6. Conectarse a la Base de Datos
+kubectl exec -it postgres-0 -n rrhh -- psql -U admin -d product_db
 
-# Listado de Dbs
-\l
+# Comandos útiles dentro de psql:
+# \l        -> Listar bases de datos
+# \c product_db -> Conectar a la base de datos
+# \dt       -> Listar tablas
+# select * from product; -> Ver datos de prueba
 
-CREATE DATABASE job_db;
-
-# Conectarse a la Db
-\c job_db;
-
-# Listar tablas
-\dt
-select * from customers;
+# 7. Limpieza (Opcional - CUIDADO: Borra datos)
+# kubectl delete -f 02.-postgres-statefulset.yaml -n rrhh
+# kubectl delete -f 03.-postgres-service.yaml -n rrhh
+# kubectl delete -f 01.-postgres-secret.yaml -n rrhh
+# kubectl delete configmap postgres-init-script -n rrhh
+# kubectl delete pvc postgres-data-postgres-0 -n rrhh

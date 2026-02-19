@@ -15,23 +15,23 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: anovoa1975/ms-api-gateway:1.0.0
+          image: anovoa1975/api-gateway:1.0.0
           ports:
-            - containerPort: 8887
+            - containerPort: 8080
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: k8s
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/application.yml
           volumeMounts:
             - name: config-volume
               mountPath: /config
           resources:
             requests:
-              memory: "512Mi"
+              memory: "256Mi"
               cpu: "250m"
             limits:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m" 
       volumes:
         - name: config-volume
           configMap:
-            name: rrhh-gateway-config
+            name: api-gateway-config

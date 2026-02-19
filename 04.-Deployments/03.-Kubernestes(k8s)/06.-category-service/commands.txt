@@ -1,0 +1,17 @@
+kubectl apply -f 01.-category-service-secret.yaml
+kubectl apply -f 02.-category-service-config.yaml
+kubectl apply -f 03.-category-service-deployment.yaml
+kubectl apply -f 04.-category-service.yaml
+
+kubectl get all -n rrhh
+kubectl get pods -n rrhh
+kubectl get svc -n rrhh
+
+# Logs
+kubectl logs deployment/category-service -n rrhh -f
+
+# Delete
+# kubectl delete -f 04.-category-service.yaml
+# kubectl delete -f 03.-category-service-deployment.yaml
+# kubectl delete -f 02.-category-service-config.yaml
+# kubectl delete -f 01.-category-service-secret.yaml

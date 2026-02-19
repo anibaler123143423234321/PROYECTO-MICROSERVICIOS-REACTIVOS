@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alquiler-service
+  namespace: rrhh
+  name: product-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: alquiler-service
+      app: product-service
   template:
     metadata:
       labels:
-        app: alquiler-service
+        app: product-service
     spec:
       containers:
-        - name: alquiler-service
-          image: alquiler-service:latest
+        - name: product-service
+          image: anovoa1975/product-service:1.0.0
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           envFrom:
             - configMapRef:
-                name: alquiler-config
+                name: product-service-config
             - secretRef:
-                name: alquiler-secret
+                name: product-service-secret
           resources:
             requests:
               cpu: 50m
               memory: 128Mi
             limits:
               cpu: 200m
-              memory: 256Mi                
+              memory: 256Mi

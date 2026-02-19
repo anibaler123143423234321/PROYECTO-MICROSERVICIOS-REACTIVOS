@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: rrhh
-  name: job-service-config
-data:
-  SPRING_R2DBC_URL: "r2dbc:postgresql://postgres/job_db"

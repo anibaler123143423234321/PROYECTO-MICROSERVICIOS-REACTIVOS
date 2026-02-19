@@ -2,27 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: rrhh
-  name: job-service
+  name: category-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: job-service
+      app: category-service
   template:
     metadata:
       labels:
-        app: job-service
+        app: category-service
     spec:
       containers:
-        - name: job-service
-          image: anovoa1975/ms-jobs-service-cur-000512:1.0.0
+        - name: category-service
+          image: anovoa1975/category-service:1.0.0
           ports:
             - containerPort: 8082
           envFrom:
             - configMapRef:
-                name: job-service-config
+                name: category-service-config
             - secretRef:
-                name: job-service-secret
+                name: category-service-secret
           resources:
             requests:
               cpu: 50m
