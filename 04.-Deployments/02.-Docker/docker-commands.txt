@@ -1,0 +1,91 @@
+docker builder prune –af
+
+
+docker run --name ms-jobs-service-cur-000512_v1 -p 8082:8082 -e DB_SERVICE=postgres_webflux_db -e DB_USER=admin -e DB_PASSWORD=123456 -e DB_PORT=5432 –e DB_NAME=job_db --network=db_stack_curs_000512_arqmswebflux_dev_db_net -d anovoa1975/ms-jobs-service-cur-000512:2.0.0
+
+docker run --name ms-jobs-service-cur-000512_v2 -p 8083:8082 -e DB_SERVICE=postgres_webflux_db -e USER=admin -e PASSWORD=123456 -e DB_PORT=5432 –e DB_NAME=job_db --network=db_stack_curs_000512_arqmswebflux_dev_db_net -d anovoa1975/ms-jobs-service-cur-000512:1.0.0
+
+
+docker run --name ms-jobs-service-cur-000512_v2 ^
+-p 8082:8082 ^
+-e SPRING_R2DBC_URL=r2dbc:postgresql://postgres_webflux_db:5432/job_db ^
+-e SPRING_R2DBC_USERNAME=admin ^
+-e SPRING_R2DBC_PASSWORD=123456 ^
+--network=db_stack_curs_000512_arqmswebflux_dev_db_net ^
+-d anovoa1975/ms-jobs-service-cur-000512:2.0.0
+
+docker stop ms-jobs-service-cur-000512_v1
+docker rm ms-jobs-service-cur-000512_v1
+
+docker run --name ms-jobs-service-cur-000512_v1 ^
+-p 8082:8082 ^
+-e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv6Addresses=false" ^
+--network=db_stack_curs_000512_arqmswebflux_dev_db_net ^
+-d anovoa1975/ms-jobs-service-cur-000512:3.0.2
+
+docker builder prune -af
+
+################################################################################
+
+mvn clean
+mvn dependency:purge-local-repository -DreResolve=false
+mvn package -DskipTests
+
+mvn clean package -DskipTests
+java -jar app-demo-v2-jpa-api-0.0.1-SNAPSHOT.jar
+
+for /f %i in ('docker images anovoa1975/ms-jobs-service-cur-000512 -q') do docker rmi -f %i
+docker builder prune –af
+
+docker build --no-cache -t anovoa1975/ms-jobs-service-cur-000512:1.0.0 .
+
+docker push anovoa1975/ms-jobs-service-cur-000512:1.0.0
+
+docker network create curs_000512_arqmswebflux_net
+
+docker run -d ^
+  --name postgres_webflux_db_job ^
+  --network curs_000512_arqmswebflux_net ^
+  -e POSTGRES_DB=job_db ^
+  -e POSTGRES_USER=admin ^
+  -e POSTGRES_PASSWORD=123456 ^
+  -p 5432:5432 ^
+  postgres:16
+
+psql -U admin -d job_db
+
+# Dont Work
+  docker run -d ^
+  --name ms-jobs-service_v1 ^
+  --network curs_000512_arqmswebflux_net ^
+  -p 8082:8082 ^
+  -e "SPRING_R2DBC_URL=r2dbc:postgresql://postgres_webflux_db_job:5432/job_db" ^
+  -e SPRING_R2DBC_USERNAME=admin ^
+  -e SPRING_R2DBC_PASSWORD=123456 ^
+  anovoa1975/ms-jobs-service-cur-000512:3.0.12
+
+  docker run -d ^
+    --name ms-jobs-service_v1 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8083:8082 ^
+    -e "SPRING_R2DBC_URL=r2dbc:postgresql://postgres_webflux_db_job/job_db" ^
+    -e SPRING_R2DBC_USERNAME=admin ^
+    -e SPRING_R2DBC_PASSWORD=123456 ^
+    anovoa1975/ms-jobs-service-cur-000512:1.0.0
+
+  docker run -d ^
+    --name ms-jobs-service_v2 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8082:8082 ^
+    -e "SPRING_R2DBC_URL=r2dbc:postgresql://postgres_webflux_db_job/job_db" ^
+    -e SPRING_R2DBC_USERNAME=admin ^
+    -e SPRING_R2DBC_PASSWORD=123456 ^
+    anovoa1975/ms-jobs-service-cur-000512:1.0.0
+
+  docker run -d ^
+    --name ms-jobs-service_v1 ^
+    --network curs_000512_arqmswebflux_net ^
+    -p 8082:8082 ^
+    anovoa1975/ms-jobs-service-cur-000512:3.0.8
+
+docker inspect ms-jobs-service_v1 --format="{{range .Config.Env}}{{println .}}{{end}}"

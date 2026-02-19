@@ -1,0 +1,6 @@
+kubectl apply -f keycloak.yaml
+
+http://localhost:30080
+
+minikube service keycloak -n keycloak
+

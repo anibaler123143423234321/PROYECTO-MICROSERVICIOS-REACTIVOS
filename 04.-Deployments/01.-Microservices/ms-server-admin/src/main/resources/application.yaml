@@ -1,0 +1,11 @@
+server:
+  port: 8890
+spring:
+  application:
+    name: ms-server-admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers

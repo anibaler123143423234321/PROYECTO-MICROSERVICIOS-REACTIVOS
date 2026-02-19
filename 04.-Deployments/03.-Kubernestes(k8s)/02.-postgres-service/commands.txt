@@ -1,0 +1,20 @@
+kubectl get all
+kubectl get all -n rrhh
+kubectl get secrets -n rrhh
+
+kubectl exec -it postgres-0 -n rrhh -- sh
+
+kubectl exec -it postgres-0 -- sh
+psql -U admin
+
+# Listado de Dbs
+\l
+
+CREATE DATABASE job_db;
+
+# Conectarse a la Db
+\c job_db;
+
+# Listar tablas
+\dt
+select * from customers;

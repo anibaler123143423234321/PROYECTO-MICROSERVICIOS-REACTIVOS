@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rrhh-gateway-config
+  namespace: rrhh
+data:
+  application-k8s.yml: |
+    server:
+      port: 8887
+
+    spring:
+      application:
+        name: rrhh-gateway
+
+      cloud:
+        gateway:
+          routes:
+            - id: ms-jobs-services
+              uri: http://job-service.rrhh.svc.cluster.local:8082
+              predicates:
+                - Path=/jobs/**
+              filters:
+                - RewritePath=/jobs/(?<path>.*), /$\{path}
+
+            - id: ms-countries-services
+              uri: http://coutries-service.rrhh.svc.cluster.local:8083
+              predicates:
+                - Path=/countries/**
+              filters:
+                - RewritePath=/countries/(?<path>.*), /$\{path}
+
+            - id: albums
+              uri: https://jsonplaceholder.typicode.com
+
+      security:
+        oauth2:
+          resourceserver:
+            jwt:
+              jwk-set-uri: http://keycloak.keycloak.svc.cluster.local:8080/realms/rrhh/protocol/openid-connect/certs

@@ -1,0 +1,19 @@
+istioctl install --set profile=demo -y
+
+kubectl get gatewayclass
+
+# kubectl get gateway -n rrhh
+
+kubectl get svc -n istio-system
+
+
+kubectl exec -it -n istio-system deploy/istio-ingressgateway -- curl http://job-service.rrhh.svc.cluster.local:8082/api/v1/jobs/all
+
+
+kubectl get pods -n istio-system -l app=istio-ingressgateway
+
+kubectl get svc -n rrhh
+
+kubectl port-forward -n rrhh svc/rrhh-gateway-istio 8080:80
+
+curl -H "Host: rrhh.local" http://127.0.0.1:8080/api/v1/jobs/all
