@@ -29,16 +29,28 @@ public class SecurityConfig {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(ex -> ex
-                        // Rutas públicas (GET)
+
+                        // ========================
+                        // PUBLIC ROUTES (GET)
+                        // ========================
                         .pathMatchers(GET, "/products/**").permitAll()
                         .pathMatchers(GET, "/categories/**").permitAll()
                         .pathMatchers(GET, "/providers/**").permitAll()
                         .pathMatchers(GET, "/stock/**").permitAll()
-                        
-                        // Infraestructura
+
+                        // ========================
+                        // INFRA
+                        // ========================
                         .pathMatchers("/actuator/**").permitAll()
 
-                        // Todo lo demás requiere autenticación
+                        // ========================
+                        // PROTECTED ROUTES (ROLES)
+                        // ========================
+                        // Requiere el rol 'jefe_rrhh' O 'admin' para modificar stock
+                        .pathMatchers(POST, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(PUT, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(DELETE, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
+
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth ->
@@ -53,23 +65,13 @@ public class SecurityConfig {
         return jwt -> {
             Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-            // Mapear roles de Keycloak (realm_access.roles)
             Map<String, Object> realmAccess = jwt.getClaim("realm_access");
             if (realmAccess != null && realmAccess.get("roles") instanceof Collection<?> roles) {
                 roles.forEach(role ->
                         authorities.add(new SimpleGrantedAuthority("ROLE_" + role))
                 );
             }
-            
-            // Mapear scopes (opcional, si se requiere para controllers)
-            String scope = jwt.getClaimAsString("scope");
-            if (scope != null) {
-                Arrays.stream(scope.split(" "))
-                        .map(s -> new SimpleGrantedAuthority("SCOPE_" + s))
-                        .forEach(authorities::add);
-            }
-
-            authorities.forEach(a -> LOGGER.info("Authority: " + a.getAuthority()));
+            authorities.forEach(a -> LOGGER.info(a.getAuthority()));
             return Mono.just(new JwtAuthenticationToken(jwt, authorities));
         };
     }
