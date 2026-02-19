@@ -17,6 +17,9 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.DELETE;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -46,10 +49,25 @@ public class SecurityConfig {
                         // ========================
                         // PROTECTED ROUTES (ROLES)
                         // ========================
-                        // Requiere el rol 'jefe_rrhh' O 'admin' para modificar stock
+                        // STOCK
                         .pathMatchers(POST, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
                         .pathMatchers(PUT, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
                         .pathMatchers(DELETE, "/stock/**").hasAnyRole("jefe_rrhh", "admin")
+
+                        // PRODUCTS
+                        .pathMatchers(POST, "/products/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(PUT, "/products/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(DELETE, "/products/**").hasAnyRole("jefe_rrhh", "admin")
+
+                        // CATEGORIES
+                        .pathMatchers(POST, "/categories/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(PUT, "/categories/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(DELETE, "/categories/**").hasAnyRole("jefe_rrhh", "admin")
+
+                        // PROVIDERS
+                        .pathMatchers(POST, "/providers/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(PUT, "/providers/**").hasAnyRole("jefe_rrhh", "admin")
+                        .pathMatchers(DELETE, "/providers/**").hasAnyRole("jefe_rrhh", "admin")
 
                         .anyExchange().authenticated()
                 )
