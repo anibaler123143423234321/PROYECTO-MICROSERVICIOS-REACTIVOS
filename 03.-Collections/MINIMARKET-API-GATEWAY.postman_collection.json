@@ -1,228 +1,600 @@
 {
-    "info": {
-        "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-        "name": "MINIMARKET-API-GATEWAY",
-        "description": "Colección para el API Gateway del proyecto Mini Market (Puerto 8080)",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-        {
-            "name": "Gateway",
-            "item": [
-                {
-                    "name": "Actuator Health",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/actuator/health",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "actuator",
-                                "health"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Products (via Gateway)",
-            "item": [
-                {
-                    "name": "Find All Products",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/products/api/v1/products",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "products",
-                                "api",
-                                "v1",
-                                "products"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "Find Product By Id",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/products/api/v1/products/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "products",
-                                "api",
-                                "v1",
-                                "products",
-                                "1"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Categories (via Gateway)",
-            "item": [
-                {
-                    "name": "Find All Categories",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/categories/api/v1/categories/all",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "categories",
-                                "api",
-                                "v1",
-                                "categories",
-                                "all"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "Find Category By Id",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/categories/api/v1/categories/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "categories",
-                                "api",
-                                "v1",
-                                "categories",
-                                "1"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Providers (via Gateway)",
-            "item": [
-                {
-                    "name": "Find All Providers",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/providers/api/v1/providers/all",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "providers",
-                                "api",
-                                "v1",
-                                "providers",
-                                "all"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "Find Provider By Id",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/providers/api/v1/providers/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "providers",
-                                "api",
-                                "v1",
-                                "providers",
-                                "1"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Stock (via Gateway)",
-            "item": [
-                {
-                    "name": "Find All Stock",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/stock/api/v1/stock",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "stock",
-                                "api",
-                                "v1",
-                                "stock"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "Find Stock By Id",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "http://localhost:8080/stock/api/v1/stock/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "stock",
-                                "api",
-                                "v1",
-                                "stock",
-                                "1"
-                            ]
-                        }
-                    }
-                }
-            ]
-        }
+  "info": {
+    "_postman_id": "f45e049b-2eea-420d-997a-a4089e2bef3b",
+    "name": "MINIMARKET-API-GATEWAY",
+    "description": "Colección para el API Gateway del proyecto Mini Market (Puerto 8080)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43183422"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
     ]
+  },
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Gateway",
+      "item": [
+        {
+          "name": "Actuator Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/actuator/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products (via Gateway)",
+      "item": [
+        {
+          "name": "Find All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/products/api/v1/products/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products",
+                "api",
+                "v1",
+                "products",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find Product By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/products/api/v1/products/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "products",
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories (via Gateway)",
+      "item": [
+        {
+          "name": "Find All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/categories/api/v1/categories/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categories",
+                "api",
+                "v1",
+                "categories",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find Category By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/categories/api/v1/categories/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categories",
+                "api",
+                "v1",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Providers (via Gateway)",
+      "item": [
+        {
+          "name": "Find All Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/providers/api/v1/providers/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "providers",
+                "api",
+                "v1",
+                "providers",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find Provider By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/providers/api/v1/providers/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "providers",
+                "api",
+                "v1",
+                "providers",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stock (via Gateway)",
+      "item": [
+        {
+          "name": "Find All Stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/stock/api/v1/stock/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stock",
+                "api",
+                "v1",
+                "stock",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find Stock By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/stock/api/v1/stock/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stock",
+                "api",
+                "v1",
+                "stock",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save Stock",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"STOCK GATEWAY\",\n    \"description\": \"DESCRIPCION GATEWAY\",\n    \"sku\": \"SKU-GATEWAY\",\n    \"location\": \"ALMACEN GATEWAY\",\n    \"providerId\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/stock/api/v1/stock",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stock",
+                "api",
+                "v1",
+                "stock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Stock",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"STOCK GATEWAY UPDATE\",\n    \"description\": \"DESCRIPCION GATEWAY UPDATE\",\n    \"sku\": \"SKU-GATEWAY-UP\",\n    \"location\": \"ALMACEN GATEWAY UP\",\n    \"providerId\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/stock/api/v1/stock/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stock",
+                "api",
+                "v1",
+                "stock",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Stock",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/stock/api/v1/stock/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stock",
+                "api",
+                "v1",
+                "stock",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02.-Security Copy",
+      "item": [
+        {
+          "name": "02.-Keycloak",
+          "item": [
+            {
+              "name": "token-body-form-anovoa-api-gateway",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "client_id",
+                      "value": "api-gateway",
+                      "type": "text",
+                      "uuid": "b0004ddb-6003-493f-a1ee-c2e4fa0c0c35"
+                    },
+                    {
+                      "key": "username",
+                      "value": "dagner",
+                      "type": "text",
+                      "uuid": "e0eab555-e5d6-45dd-ab89-08d9bebf5649"
+                    },
+                    {
+                      "key": "password",
+                      "value": "1234",
+                      "type": "text",
+                      "uuid": "f6fca671-c369-40ba-8cd5-4c3a2a860715"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "e8868aa7-92be-4260-836f-ebdda92da5ce"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "openid profile email countries.read countries.update countries.delete",
+                      "type": "text",
+                      "uuid": "e37a0818-4dec-4e2a-9602-48b821544ad8",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5080/realms/rrhh/protocol/openid-connect/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5080",
+                  "path": [
+                    "realms",
+                    "rrhh",
+                    "protocol",
+                    "openid-connect",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "token-body-form-dagner-api-gateway",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "pm.collectionVariables.set(\"token\", jsonData.access_token);",
+                      "console.log(\"Token captured: \" + jsonData.access_token);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "client_id",
+                      "value": "api-gateway",
+                      "type": "text",
+                      "uuid": "b0004ddb-6003-493f-a1ee-c2e4fa0c0c35"
+                    },
+                    {
+                      "key": "username",
+                      "value": "dagner",
+                      "type": "text",
+                      "uuid": "e0eab555-e5d6-45dd-ab89-08d9bebf5649"
+                    },
+                    {
+                      "key": "password",
+                      "value": "1234",
+                      "type": "text",
+                      "uuid": "f6fca671-c369-40ba-8cd5-4c3a2a860715"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "e8868aa7-92be-4260-836f-ebdda92da5ce"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "openid profile email countries.read countries.update countries.delete",
+                      "type": "text",
+                      "uuid": "e37a0818-4dec-4e2a-9602-48b821544ad8",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5080/realms/rrhh/protocol/openid-connect/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5080",
+                  "path": [
+                    "realms",
+                    "rrhh",
+                    "protocol",
+                    "openid-connect",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "token-body-form-jperez-api-gateway",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "client_id",
+                      "value": "api-gateway",
+                      "type": "text",
+                      "uuid": "b0004ddb-6003-493f-a1ee-c2e4fa0c0c35"
+                    },
+                    {
+                      "key": "username",
+                      "value": "anovoa",
+                      "type": "text",
+                      "uuid": "e0eab555-e5d6-45dd-ab89-08d9bebf5649"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123456",
+                      "type": "text",
+                      "uuid": "f6fca671-c369-40ba-8cd5-4c3a2a860715"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "e8868aa7-92be-4260-836f-ebdda92da5ce"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "basic",
+                      "type": "text",
+                      "uuid": "e37a0818-4dec-4e2a-9602-48b821544ad8"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5080/realms/rrhh/protocol/openid-connect/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5080",
+                  "path": [
+                    "realms",
+                    "rrhh",
+                    "protocol",
+                    "openid-connect",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "token-body-form-mllanos-api-gateway",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "client_id",
+                      "value": "api-gateway",
+                      "type": "text",
+                      "uuid": "b0004ddb-6003-493f-a1ee-c2e4fa0c0c35"
+                    },
+                    {
+                      "key": "username",
+                      "value": "mllanos",
+                      "type": "text",
+                      "uuid": "e0eab555-e5d6-45dd-ab89-08d9bebf5649"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123456",
+                      "type": "text",
+                      "uuid": "f6fca671-c369-40ba-8cd5-4c3a2a860715"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "e8868aa7-92be-4260-836f-ebdda92da5ce"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "openid profile email countries.update.code",
+                      "type": "text",
+                      "uuid": "e37a0818-4dec-4e2a-9602-48b821544ad8"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5080/realms/rrhh/protocol/openid-connect/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5080",
+                  "path": [
+                    "realms",
+                    "rrhh",
+                    "protocol",
+                    "openid-connect",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
