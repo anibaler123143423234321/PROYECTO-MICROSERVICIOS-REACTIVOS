@@ -20,7 +20,7 @@ services:
     container_name: pgadmin_minimarket_ui
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: anovoa@galaxy.edu.pe
+      PGADMIN_DEFAULT_EMAIL: dagner2001@gmail.com
       PGADMIN_DEFAULT_PASSWORD: 123456
     ports:
       - "9090:80"
@@ -34,3 +34,5 @@ volumes:
 networks:
   db_net:
     driver: bridge
+
+#docker-compose up -d --force-recreate pgadmin_minimarket
