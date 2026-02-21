@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: category-service
-          image: anovoa1975/category-service:1.0.0
+          image: dagner2001/category-service:1.0.0
           ports:
             - containerPort: 8082
           envFrom:
