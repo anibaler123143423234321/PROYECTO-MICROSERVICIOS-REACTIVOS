@@ -1,0 +1,20 @@
+﻿
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-02-21T20:42:29.891Z  INFO 1 --- [product-service] [           main] .e.g.t.j.w.a.b.ProductServiceApplication : Starting ProductServiceApplication v0.0.1-SNAPSHOT using Java 21.0.10 with PID 1 (/product-service.jar started by root in /)
+2026-02-21T20:42:29.927Z  INFO 1 --- [product-service] [           main] .e.g.t.j.w.a.b.ProductServiceApplication : No active profile set, falling back to 1 default profile: "default"
+2026-02-21T20:42:33.639Z  INFO 1 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2026-02-21T20:42:33.975Z  INFO 1 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 320 ms. Found 1 R2DBC repository interface.
+2026-02-21T20:42:39.310Z  INFO 1 --- [product-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-02-21T20:42:39.935Z  INFO 1 --- [product-service] [           main] o.s.boot.reactor.netty.NettyWebServer    : Netty started on port 8081 (http)
+2026-02-21T20:42:39.947Z  INFO 1 --- [product-service] [           main] .e.g.t.j.w.a.b.ProductServiceApplication : Started ProductServiceApplication in 11.624 seconds (process running for 14.018)
+Runing ok
+2026-02-21T20:42:58.413Z  INFO 1 --- [product-service] [ionShutdownHook] o.s.boot.reactor.netty.GracefulShutdown  : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-21T20:42:58.415Z  INFO 1 --- [product-service] [ netty-shutdown] o.s.boot.reactor.netty.GracefulShutdown  : Graceful shutdown complete

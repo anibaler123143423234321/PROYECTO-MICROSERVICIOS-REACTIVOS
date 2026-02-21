@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  ms-server-admin:
+    image: dagner2001/ms-server-admin:1.0.0
+    container_name: ms-server-admin
+    ports:
+      - "8890:8890"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  api-gateway:
+    image: dagner2001/api-gateway:1.0.0
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      # Apunta a Keycloak en Windows host
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:5080/realms/rrhh/protocol/openid-connect/certs
+      - PRODUCT_URI=http://product-service:8081
+      - CATEGORY_URI=http://category-service:8082
+      - PROVIDER_URI=http://provider-service:8083
+      - STOCK_URI=http://stock-service:8084
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - ms-server-admin
+
+  product-service:
+    image: dagner2001/product-service:1.0.0
+    container_name: product-service
+    ports:
+      - "8081:8081"
+    environment:
+      # Apunta a la Base de Datos Postgres en localhost (Windows)
+      - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/product_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  category-service:
+    image: dagner2001/category-service:1.0.0
+    container_name: category-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/category_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  provider-service:
+    image: dagner2001/provider-service:1.0.0
+    container_name: provider-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/provider_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  stock-service:
+    image: dagner2001/stock-service:1.0.0
+    container_name: stock-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/stock_db
+      - SERVICE_PROVIDERS=provider-service
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

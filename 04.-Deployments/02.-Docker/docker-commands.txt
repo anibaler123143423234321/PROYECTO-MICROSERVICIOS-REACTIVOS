@@ -12,75 +12,75 @@ docker images
 ################################################################################
 # Build (Desde la carpeta ms-server-admin)
 cd ../../02.-Microservices/ms-server-admin
-docker build -t anovoa1975/ms-server-admin:1.0.0 .
+docker build -t dagner2001/ms-server-admin:1.0.0 .
 
 # Push
-docker push anovoa1975/ms-server-admin:1.0.0
+docker push dagner2001/ms-server-admin:1.0.0
 
 # Run (Local Check)
-docker run -d --name ms-server-admin -p 8890:8890 anovoa1975/ms-server-admin:1.0.0
+docker run -d --name ms-server-admin -p 8890:8890 dagner2001/ms-server-admin:1.0.0
 
 ################################################################################
 # 2. API-GATEWAY (Gradle - Port 8080)
 ################################################################################
 # Build (Desde la carpeta api-gateway)
 cd ../api-gateway
-docker build -t anovoa1975/api-gateway:1.0.0 .
+docker build -t dagner2001/api-gateway:1.0.0 .
 
 # Push
-docker push anovoa1975/api-gateway:1.0.0
+docker push dagner2001/api-gateway:1.0.0
 
 # Run (Local Check - Requiere Admin y Keycloak)
-docker run -d --name api-gateway -p 8080:8080 -e SERVER_PORT=8080 anovoa1975/api-gateway:1.0.0
+docker run -d --name api-gateway -p 8080:8080 -e SERVER_PORT=8080 dagner2001/api-gateway:1.0.0
 
 ################################################################################
 # 3. PRODUCT-SERVICE (Maven - Port 8081)
 ################################################################################
 # Build (Desde la carpeta product-service)
 cd ../product-service
-docker build -t anovoa1975/product-service:1.0.0 .
+docker build -t dagner2001/product-service:1.0.0 .
 
 # Push
-docker push anovoa1975/product-service:1.0.0
+docker push dagner2001/product-service:1.0.0
 
 # Run (Local Check)
-docker run -d --name product-service -p 8081:8081 anovoa1975/product-service:1.0.0
+docker run -d --name product-service -p 8081:8081 dagner2001/product-service:1.0.0
 
 ################################################################################
 # 4. CATEGORY-SERVICE (Maven - Port 8082)
 ################################################################################
 # Build (Desde la carpeta category-service)
 cd ../category-service
-docker build -t anovoa1975/category-service:1.0.0 .
+docker build -t dagner2001/category-service:1.0.0 .
 
 # Push
-docker push anovoa1975/category-service:1.0.0
+docker push dagner2001/category-service:1.0.0
 
 # Run (Local Check)
-docker run -d --name category-service -p 8082:8082 anovoa1975/category-service:1.0.0
+docker run -d --name category-service -p 8082:8082 dagner2001/category-service:1.0.0
 
 ################################################################################
 # 5. PROVIDER-SERVICE (Maven - Port 8083)
 ################################################################################
 # Build (Desde la carpeta provider-service)
 cd ../provider-service
-docker build -t anovoa1975/provider-service:1.0.0 .
+docker build -t dagner2001/provider-service:1.0.0 .
 
 # Push
-docker push anovoa1975/provider-service:1.0.0
+docker push dagner2001/provider-service:1.0.0
 
 # Run (Local Check)
-docker run -d --name provider-service -p 8083:8083 anovoa1975/provider-service:1.0.0
+docker run -d --name provider-service -p 8083:8083 dagner2001/provider-service:1.0.0
 
 ################################################################################
 # 6. STOCK-SERVICE (Maven - Port 8084)
 ################################################################################
 # Build (Desde la carpeta stock-service)
 cd ../stock-service
-docker build -t anovoa1975/stock-service:1.0.0 .
+docker build -t dagner2001/stock-service:1.0.0 .
 
 # Push
-docker push anovoa1975/stock-service:1.0.0
+docker push dagner2001/stock-service:1.0.0
 
 # Run (Local Check)
-docker run -d --name stock-service -p 8084:8084 anovoa1975/stock-service:1.0.0
+docker run -d --name stock-service -p 8084:8084 dagner2001/stock-service:1.0.0
