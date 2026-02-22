@@ -66,6 +66,9 @@ public class ProviderClientImpl implements ProviderClient {
     }
 
     @Override
+    @CircuitBreaker(name = "providerService", fallbackMethod = "fallbackFindByIds")
+    @Retry(name = "providerService")
+    @TimeLimiter(name = "providerService")
     public Flux<ProviderResponse> findByIds(Collection<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return Flux.empty();
@@ -94,5 +97,9 @@ public class ProviderClientImpl implements ProviderClient {
 
     private Mono<ProviderResponse> fallbackFindById(Long id, Throwable ex) {
         return Mono.error(ProviderServiceErrors.serviceUnavailable());
+    }
+
+    private Flux<ProviderResponse> fallbackFindByIds(Collection<Long> ids, Throwable ex) {
+        return Flux.error(ProviderServiceErrors.serviceUnavailable());
     }
 }
