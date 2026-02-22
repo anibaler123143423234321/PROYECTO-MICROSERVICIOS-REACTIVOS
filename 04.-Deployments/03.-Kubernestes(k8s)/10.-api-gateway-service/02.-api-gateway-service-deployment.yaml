@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: dagner2001/api-gateway:1.0.0
+          image: smooth2444/api-gateway:1.0.0
           ports:
             - containerPort: 8080
           env:

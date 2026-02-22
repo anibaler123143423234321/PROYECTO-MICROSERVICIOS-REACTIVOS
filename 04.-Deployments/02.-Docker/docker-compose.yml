@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   ms-server-admin:
-    image: dagner2001/ms-server-admin:1.0.0
+    image: smooth2444/ms-server-admin:1.0.0
     container_name: ms-server-admin
     ports:
       - "8890:8890"
@@ -10,7 +10,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   api-gateway:
-    image: dagner2001/api-gateway:1.0.0
+    image: smooth2444/api-gateway:1.0.0
     container_name: api-gateway
     ports:
       - "8080:8080"
@@ -28,7 +28,7 @@ services:
       - ms-server-admin
 
   product-service:
-    image: dagner2001/product-service:1.0.0
+    image: smooth2444/product-service:1.0.0
     container_name: product-service
     ports:
       - "8081:8081"
@@ -39,7 +39,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   category-service:
-    image: dagner2001/category-service:1.0.0
+    image: smooth2444/category-service:1.0.0
     container_name: category-service
     ports:
       - "8082:8082"
@@ -49,7 +49,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   provider-service:
-    image: dagner2001/provider-service:1.0.0
+    image: smooth2444/provider-service:1.0.0
     container_name: provider-service
     ports:
       - "8083:8083"
@@ -59,7 +59,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   stock-service:
-    image: dagner2001/stock-service:1.0.0
+    image: smooth2444/stock-service:1.0.0
     container_name: stock-service
     ports:
       - "8084:8084"

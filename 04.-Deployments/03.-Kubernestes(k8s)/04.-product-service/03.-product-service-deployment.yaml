@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: dagner2001/product-service:1.0.0
+          image: smooth2444/product-service:1.0.0
           ports:
             - containerPort: 8081
           envFrom:
