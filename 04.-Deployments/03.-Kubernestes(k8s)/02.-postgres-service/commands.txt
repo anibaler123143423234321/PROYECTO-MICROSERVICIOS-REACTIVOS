@@ -3,28 +3,28 @@
 ################################################################################
 
 # 1. Crear Namespace (si no existe)
-kubectl create namespace rrhh
+kubectl create namespace minimarket
 
 # 2. Crear ConfigMap para el script de inicializacion
 # (Asegúrate de estar en la carpeta 02.-postgres-service)
-kubectl create configmap postgres-init-script --from-file=04.-script.sql -n rrhh
+kubectl create configmap postgres-init-script --from-file=04.-script.sql -n minimarket
 
 # 3. Aplicar Secretos, Service y StatefulSet
-kubectl apply -f 01.-postgres-secret.yaml -n rrhh
-kubectl apply -f 03.-postgres-service.yaml -n rrhh
-kubectl apply -f 02.-postgres-statefulset.yaml -n rrhh
+kubectl apply -f 01.-postgres-secret.yaml -n minimarket
+kubectl apply -f 03.-postgres-service.yaml -n minimarket
+kubectl apply -f 02.-postgres-statefulset.yaml -n minimarket
 
 # 4. Verificar Estado
-kubectl get all -n rrhh
-kubectl get pvc -n rrhh
-kubectl get secrets -n rrhh
-kubectl get configmaps -n rrhh
+kubectl get all -n minimarket
+kubectl get pvc -n minimarket
+kubectl get secrets -n minimarket
+kubectl get configmaps -n minimarket
 
 # 5. Logs del Pod (para ver si corrió el script)
-kubectl logs statefulset/postgres -n rrhh
+kubectl logs statefulset/postgres -n minimarket
 
 # 6. Conectarse a la Base de Datos
-kubectl exec -it postgres-0 -n rrhh -- psql -U admin -d product_db
+kubectl exec -it postgres-0 -n minimarket -- psql -U admin -d product_db
 
 # Comandos útiles dentro de psql:
 # \l        -> Listar bases de datos

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: rrhh
+  namespace: minimarket
   name: category-service
 spec:
   replicas: 1

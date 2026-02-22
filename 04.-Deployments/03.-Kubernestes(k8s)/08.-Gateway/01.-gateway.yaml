@@ -1,8 +1,8 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: rrhh-gateway
-  namespace: rrhh
+  name: minimarket-gateway
+  namespace: minimarket
 spec:
   gatewayClassName: istio
   listeners:

@@ -2,4 +2,4 @@ kubectl apply -f .\01.-namespace.yaml
 
 kubectl  get ns
 
-kubectl config set-context --current --namespace=rrhh
+kubectl config set-context --current --namespace=minimarket

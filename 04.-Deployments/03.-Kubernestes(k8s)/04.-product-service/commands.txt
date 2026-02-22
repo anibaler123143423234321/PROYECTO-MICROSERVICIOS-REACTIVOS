@@ -3,12 +3,12 @@ kubectl apply -f 02.-product-service-config.yaml
 kubectl apply -f 03.-product-service-deployment.yaml
 kubectl apply -f 04.-product-service.yaml
 
-kubectl get all -n rrhh
-kubectl get pods -n rrhh
-kubectl get svc -n rrhh
+kubectl get all -n minimarket
+kubectl get pods -n minimarket
+kubectl get svc -n minimarket
 
 # Logs
-kubectl logs deployment/product-service -n rrhh -f
+kubectl logs deployment/product-service -n minimarket -f
 
 # Port Forward
 # kubectl port-forward svc/product-service 8081:8081 -n rrhh

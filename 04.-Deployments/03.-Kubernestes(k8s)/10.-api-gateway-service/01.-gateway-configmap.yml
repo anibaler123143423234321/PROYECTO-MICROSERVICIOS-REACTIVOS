@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: api-gateway-config
-  namespace: rrhh
+  namespace: minimarket
 data:
   application.yml: |
     server:
@@ -20,28 +20,28 @@ data:
           routes:
             # ---- PRODUCT SERVICE ----
             - id: product-service
-              uri: http://product-service.rrhh.svc.cluster.local:8081
+              uri: http://product-service.minimarket.svc.cluster.local:8081
               predicates:
                 - Path=/api/v1/products/**
               # Filters removed to preserve path
 
             # ---- CATEGORY SERVICE ----
             - id: category-service
-              uri: http://category-service.rrhh.svc.cluster.local:8082
+              uri: http://category-service.minimarket.svc.cluster.local:8082
               predicates:
                 - Path=/api/v1/categories/**
               # Filters removed to preserve path
 
             # ---- PROVIDER SERVICE ----
             - id: provider-service
-              uri: http://provider-service.rrhh.svc.cluster.local:8083
+              uri: http://provider-service.minimarket.svc.cluster.local:8083
               predicates:
                 - Path=/api/v1/providers/**
               # Filters removed to preserve path
 
             # ---- STOCK SERVICE ----
             - id: stock-service
-              uri: http://stock-service.rrhh.svc.cluster.local:8084
+              uri: http://stock-service.minimarket.svc.cluster.local:8084
               predicates:
                 - Path=/api/v1/stock/**
               # Filters removed to preserve path
@@ -51,7 +51,7 @@ data:
         oauth2:
           resourceserver:
             jwt:
-              jwk-set-uri: http://keycloak.rrhh.svc.cluster.local:8080/realms/rrhh/protocol/openid-connect/certs
+              jwk-set-uri: http://keycloak.minimarket.svc.cluster.local:8080/realms/minimarket/protocol/openid-connect/certs
 
     management:
       endpoints:

@@ -2,17 +2,17 @@ istioctl install --set profile=demo -y
 
 kubectl get gatewayclass
 
-# kubectl get gateway -n rrhh
+# kubectl get gateway -n minimarket
 
 kubectl get svc -n istio-system
 
 
-kubectl exec -it -n istio-system deploy/istio-ingressgateway -- curl http://product-service.rrhh.svc.cluster.local:8081/api/v1/products/all
+kubectl exec -it -n istio-system deploy/istio-ingressgateway -- curl http://product-service.minimarket.svc.cluster.local:8081/api/v1/products/all
 
 kubectl get pods -n istio-system -l app=istio-ingressgateway
 
-kubectl get svc -n rrhh
+kubectl get svc -n minimarket
 
-kubectl port-forward -n rrhh svc/rrhh-gateway-istio 8080:80
+kubectl port-forward -n minimarket svc/minimarket-gateway-istio 8080:80
 
-curl -H "Host: rrhh.local" http://127.0.0.1:8080/api/v1/products/all
+curl -H "Host: minimarket.local" http://127.0.0.1:8080/api/v1/products/all

@@ -2,14 +2,14 @@ kubectl apply -f 01.-gateway-configmap.yml
 kubectl apply -f 02.-api-gateway-service-deployment.yaml
 kubectl apply -f 03.-api-gateway-service.yaml
 
-kubectl get all -n rrhh
-kubectl get svc -n rrhh
+kubectl get all -n minimarket
+kubectl get svc -n minimarket
 
 # Logs
-kubectl logs deployment/api-gateway -n rrhh -f
+kubectl logs deployment/api-gateway -n minimarket -f
 
 # URL Minikube
-# minikube service api-gateway -n rrhh --url
+# minikube service api-gateway -n minimarket --url
 
 # Prueba del Endpoint Correcto
 # curl http://<MINIKUBE-IP>:30080/api/v1/products/all

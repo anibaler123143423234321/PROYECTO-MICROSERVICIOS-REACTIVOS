@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: rrhh
+  namespace: minimarket
   name: category-service-config
 data:
-  SPRING_R2DBC_URL: "r2dbc:postgresql://postgres.rrhh:5432/category_db"
+  SPRING_R2DBC_URL: "r2dbc:postgresql://postgres.minimarket:5432/category_db"

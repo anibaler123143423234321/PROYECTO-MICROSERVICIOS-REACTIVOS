@@ -3,12 +3,12 @@ kubectl apply -f 02.-category-service-config.yaml
 kubectl apply -f 03.-category-service-deployment.yaml
 kubectl apply -f 04.-category-service.yaml
 
-kubectl get all -n rrhh
-kubectl get pods -n rrhh
-kubectl get svc -n rrhh
+kubectl get all -n minimarket
+kubectl get pods -n minimarket
+kubectl get svc -n minimarket
 
 # Logs
-kubectl logs deployment/category-service -n rrhh -f
+kubectl logs deployment/category-service -n minimarket -f
 
 # Delete
 # kubectl delete -f 04.-category-service.yaml
