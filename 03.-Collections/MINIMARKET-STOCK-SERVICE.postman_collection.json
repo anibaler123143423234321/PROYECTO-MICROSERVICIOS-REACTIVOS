@@ -132,7 +132,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"STOCK PRODUCTO NUEVO\",\n    \"description\": \"DESCRIPCION STOCK NUEVO\",\n    \"sku\": \"SKU-999\",\n    \"location\": \"ALMACEN Z\",\n    \"providerId\": 5\n}",
+              "raw": "{\n    \"productId\": 1,\n    \"quantity\": 100,\n    \"location\": \"ALMACEN Z\",\n    \"providerId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -162,7 +162,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"STOCK ACTUALIZADO\",\n    \"description\": \"DESCRIPCION ACTUALIZADA\",\n    \"sku\": \"SKU-001\",\n    \"location\": \"ALMACEN A1-EDITADO\",\n    \"providerId\": 5\n}",
+              "raw": "{\n    \"productId\": 1,\n    \"quantity\": 150,\n    \"location\": \"ALMACEN A1-EDITADO\",\n    \"providerId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -193,7 +193,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"sku\": \"SKU-001-NEW\",\n    \"location\": \"NUEVA UBICACION\"\n}",
+              "raw": "{\n    \"quantity\": 200,\n    \"location\": \"NUEVA UBICACION\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

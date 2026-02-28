@@ -105,7 +105,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"ARROZ COSTEÑO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR\"\n}",
+              "raw": "{\n    \"name\": \"ARROZ COSTEÑO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR\",\n    \"categoryId\": 1\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -136,7 +136,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"ARROZ COSTEÑO EDITADO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR ACTUALIZADO\"\n}",
+              "raw": "{\n    \"name\": \"ARROZ COSTEÑO EDITADO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR ACTUALIZADO\",\n    \"categoryId\": 1\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -516,7 +516,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"STOCK GATEWAY\",\n    \"description\": \"DESCRIPCION GATEWAY\",\n    \"sku\": \"SKU-GATEWAY\",\n    \"location\": \"ALMACEN GATEWAY\",\n    \"providerId\": 5\n}",
+              "raw": "{\n    \"productId\": 1,\n    \"quantity\": 100,\n    \"location\": \"ALMACEN GATEWAY\",\n    \"providerId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -547,7 +547,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"STOCK GATEWAY UPDATE\",\n    \"description\": \"DESCRIPCION GATEWAY UPDATE\",\n    \"sku\": \"SKU-GATEWAY-UP\",\n    \"location\": \"ALMACEN GATEWAY UP\",\n    \"providerId\": 5\n}",
+              "raw": "{\n    \"productId\": 1,\n    \"quantity\": 150,\n    \"location\": \"ALMACEN GATEWAY UP\",\n    \"providerId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"

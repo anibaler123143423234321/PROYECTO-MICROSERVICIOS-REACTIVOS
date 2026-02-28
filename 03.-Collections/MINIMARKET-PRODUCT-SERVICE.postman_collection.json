@@ -131,7 +131,7 @@
                         "header": [],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"ARROZ COSTEÑO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR\"\n}",
+                            "raw": "{\n    \"name\": \"ARROZ COSTEÑO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR\",\n    \"categoryId\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -161,7 +161,7 @@
                         "header": [],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"ARROZ COSTEÑO EDITADO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR ACTUALIZADO\"\n}",
+                            "raw": "{\n    \"name\": \"ARROZ COSTEÑO EDITADO\",\n    \"description\": \"ARROZ COSTEÑO EXTRA 750GR ACTUALIZADO\",\n    \"categoryId\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
