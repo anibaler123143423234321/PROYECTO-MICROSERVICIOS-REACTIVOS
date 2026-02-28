@@ -45,6 +45,10 @@ public class StockServiceImpl implements StockService {
 
                     Mono<Map<Long, ProviderResponse>> providersMapMono =
                             providerClient.findByIds(providerIds)
+                                    .onErrorResume(e -> {
+                                        log.warn("Error al obtener los proveedores para la lista de stock: {}", e.getMessage());
+                                        return Flux.empty();
+                                    })
                                     .collectMap(ProviderResponse::id);
 
                     return providersMapMono.flatMapMany(providersMap ->
@@ -68,15 +72,22 @@ public class StockServiceImpl implements StockService {
     @Override
     public Mono<StockResponse> findById(Long id) {
         return stockRepository.findById(id)
-                .flatMap(item ->
-                        providerClient.findById(item.getProviderId())
-                                .map(provider ->
-                                        stockMapper.toDto(item, provider)
-                                )
-                )
+                .flatMap(item -> {
+                    if (item.getProviderId() == null) {
+                        return Mono.just(stockMapper.toDto(item));
+                    }
+                    return providerClient.findById(item.getProviderId())
+                            .map(provider -> stockMapper.toDto(item, provider))
+                            .onErrorResume(e -> {
+                                log.warn("Error al obtener el proveedor {} para el stock {}: {}", 
+                                        item.getProviderId(), id, e.getMessage());
+                                return Mono.just(stockMapper.toDto(item));
+                            });
+                })
                 .switchIfEmpty(Mono.error(
                         new StockServiceException(String.format(STOCK_NOT_FOUND_BY_ID, id))
                 ))
+
                 .onErrorMap(ex -> {
                     if (ex instanceof ExternalServiceException) {
                         return ex;
@@ -96,8 +107,11 @@ public class StockServiceImpl implements StockService {
                             .collect(Collectors.toSet());
 
                     Mono<Map<Long, ProviderResponse>> providersMapMono =
-                            Flux.fromIterable(providerIds)
-                                    .flatMap(providerClient::findById)
+                            providerClient.findByIds(providerIds)
+                                    .onErrorResume(e -> {
+                                        log.warn("Error al obtener los proveedores para la lista de stock por nombre: {}", e.getMessage());
+                                        return Flux.empty();
+                                    })
                                     .collectMap(ProviderResponse::id);
 
                     return providersMapMono.flatMapMany(providersMap ->

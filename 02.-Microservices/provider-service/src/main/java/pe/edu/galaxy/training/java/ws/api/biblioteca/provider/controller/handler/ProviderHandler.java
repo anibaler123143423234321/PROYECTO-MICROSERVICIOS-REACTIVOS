@@ -35,13 +35,16 @@ public class ProviderHandler {
     }
 
     public Mono<ServerResponse> findByIds(ServerRequest request) {
-        String idsStr = request.queryParam("ids").orElse("");
-        if (idsStr.isBlank()) {
+        java.util.List<String> idsParams = request.queryParams().get("ids");
+        
+        if (idsParams == null || idsParams.isEmpty()) {
             return ServerResponse.ok().bodyValue(Collections.emptyList());
         }
 
-        Set<Long> ids = Stream.of(idsStr.split(","))
+        Set<Long> ids = idsParams.stream()
+                .flatMap(s -> Stream.of(s.split(",")))
                 .map(String::trim)
+                .filter(s -> !s.isEmpty())
                 .map(Long::parseLong)
                 .collect(Collectors.toSet());
 
@@ -49,6 +52,7 @@ public class ProviderHandler {
                 .collectList()
                 .flatMap(list -> ServerResponse.ok().bodyValue(list));
     }
+
 
     public Mono<ServerResponse> findAll(ServerRequest request) {
         return providerService.findAll()
