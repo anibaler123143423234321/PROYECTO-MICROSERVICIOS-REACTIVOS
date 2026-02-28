@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   ms-server-admin:
+    build: ../../02.-Microservices/ms-server-admin
     image: smooth2444/ms-server-admin:1.0.0
     container_name: ms-server-admin
     ports:
@@ -10,6 +11,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   api-gateway:
+    build: ../../02.-Microservices/api-gateway
     image: smooth2444/api-gateway:1.0.0
     container_name: api-gateway
     ports:
@@ -28,6 +30,7 @@ services:
       - ms-server-admin
 
   product-service:
+    build: ../../02.-Microservices/product-service
     image: smooth2444/product-service:1.0.0
     container_name: product-service
     ports:
@@ -35,10 +38,12 @@ services:
     environment:
       # Apunta a la Base de Datos Postgres en localhost (Windows)
       - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/product_db
+      - SERVICE_CATEGORIES=category-service
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   category-service:
+    build: ../../02.-Microservices/category-service
     image: smooth2444/category-service:1.0.0
     container_name: category-service
     ports:
@@ -49,6 +54,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   provider-service:
+    build: ../../02.-Microservices/provider-service
     image: smooth2444/provider-service:1.0.0
     container_name: provider-service
     ports:
@@ -59,6 +65,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   stock-service:
+    build: ../../02.-Microservices/stock-service
     image: smooth2444/stock-service:1.0.0
     container_name: stock-service
     ports:
@@ -66,5 +73,6 @@ services:
     environment:
       - SPRING_R2DBC_URL=r2dbc:postgresql://host.docker.internal:5432/stock_db
       - SERVICE_PROVIDERS=provider-service
+      - SERVICE_PRODUCTS=product-service
     extra_hosts:
       - "host.docker.internal:host-gateway"
