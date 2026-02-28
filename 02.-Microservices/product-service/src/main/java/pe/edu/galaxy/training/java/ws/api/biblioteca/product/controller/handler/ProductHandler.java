@@ -65,6 +65,24 @@ public class ProductHandler {
                 );
     }
 
+    public Mono<ServerResponse> findByIds(ServerRequest request) {
+        String idsParam = request.queryParam("ids").orElse("");
+        if (idsParam.isBlank()) {
+            return ServerResponse.badRequest().bodyValue("List of IDs is required");
+        }
+        java.util.List<Long> ids = java.util.Arrays.stream(idsParam.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(Long::valueOf)
+                .toList();
+
+        return productService.findByIds(ids)
+                .collectList()
+                .flatMap(list -> list.isEmpty()
+                        ? ServerResponse.noContent().build()
+                        : ServerResponse.ok().bodyValue(list));
+    }
+
     public Mono<ServerResponse> save(ServerRequest request) {
         return request.bodyToMono(ProductRequest.class)
                 .flatMap(productService::save)

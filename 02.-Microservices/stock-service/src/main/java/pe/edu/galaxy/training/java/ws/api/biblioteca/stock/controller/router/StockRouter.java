@@ -18,7 +18,6 @@ public class StockRouter {
                 .path("/api/v1/stock", builder -> builder
                 		
                         .GET("/all", handler::findAll)
-                        .GET("/by-name", handler::findByName)
 
                         .GET("/{id}", handler::findById)
 

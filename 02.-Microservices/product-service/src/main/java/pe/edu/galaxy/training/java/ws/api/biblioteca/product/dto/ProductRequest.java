@@ -3,6 +3,8 @@ package pe.edu.galaxy.training.java.ws.api.biblioteca.product.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import jakarta.validation.constraints.NotNull;
+
 public record ProductRequest(
 	
 	@NotBlank(message = "The name is required")
@@ -11,5 +13,8 @@ public record ProductRequest(
 
     @NotBlank(message = "The description is required")
     @Size(min = 5, max = 400, message = "The description must have {min} or {max} characters")
-    String description
+    String description,
+
+    @NotNull(message = "The categoryId is required")
+    Long categoryId
 ) {}

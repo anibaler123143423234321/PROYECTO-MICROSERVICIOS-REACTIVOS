@@ -9,7 +9,7 @@ public interface StockMapper {
 
     StockEntity toEntity(StockRequest stockRequest);
 
-    StockResponse toDto(StockEntity stockEntity, ProviderResponse providerResponse);
+    StockResponse toDto(StockEntity stockEntity, pe.edu.galaxy.training.java.ws.api.biblioteca.stock.dto.ProductResponse productResponse, ProviderResponse providerResponse);
 
     StockResponse toDto(StockEntity stockEntity);
 }

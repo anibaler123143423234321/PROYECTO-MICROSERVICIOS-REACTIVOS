@@ -14,6 +14,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import static pe.edu.galaxy.training.java.ws.api.biblioteca.product.service.ProductHandlerException.mapDuplicateConstraint;
 
+import pe.edu.galaxy.training.java.ws.api.biblioteca.product.service.client.CategoryClient;
+import pe.edu.galaxy.training.java.ws.api.biblioteca.product.dto.CategoryResponse;
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -21,17 +26,45 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryClient categoryClient;
 
     @Override
     public Flux<ProductResponse> findAll() {
         return productRepository.findByName("")
-                .map(productMapper::toDto)
+                .collectList()
+                .flatMapMany(products -> {
+                    if (products.isEmpty()) return Flux.empty();
+                    List<Long> categoryIds = products.stream()
+                            .map(ProductEntity::getCategoryId)
+                            .distinct()
+                            .toList();
+                    
+                    Mono<Map<Long, CategoryResponse>> categoriesMapMono = 
+                            categoryClient.findByIds(categoryIds)
+                            .onErrorResume(e -> {
+                                log.warn("Error consultando categorías: {}", e.getMessage());
+                                return Flux.empty();
+                            })
+                            .collectMap(CategoryResponse::id);
+                    
+                    return categoriesMapMono.flatMapMany(categoryMap -> 
+                            Flux.fromIterable(products)
+                                    .map(p -> productMapper.toDto(p, categoryMap.get(p.getCategoryId())))
+                    );
+                })
             .onErrorMap(e -> new ProductServiceException("Error al listar los productos", e));
     }
+
     @Override
     public Mono<ProductResponse> findById(Long id) {
         return productRepository.findById(id)
-                .map(productMapper::toDto)
+                .flatMap(product -> categoryClient.findById(product.getCategoryId())
+                        .map(category -> productMapper.toDto(product, category))
+                        .defaultIfEmpty(productMapper.toDto(product))
+                        .onErrorResume(e -> {
+                            log.warn("Error consultando categoría de producto {}: {}", id, e.getMessage());
+                            return Mono.just(productMapper.toDto(product));
+                        }))
             .switchIfEmpty(Mono.error(
                 new ProductServiceException(String.format("No existe producto con el id %s", id))
             ))
@@ -41,8 +74,55 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Flux<ProductResponse> findByName(String name) {
         return productRepository.findByName( (name == null) ? "" : name.trim())
-                .map(productMapper::toDto)
+                .collectList()
+                .flatMapMany(products -> {
+                    if (products.isEmpty()) return Flux.empty();
+                    List<Long> categoryIds = products.stream()
+                            .map(ProductEntity::getCategoryId)
+                            .distinct()
+                            .toList();
+                    
+                    Mono<Map<Long, CategoryResponse>> categoriesMapMono = 
+                            categoryClient.findByIds(categoryIds)
+                            .onErrorResume(e -> {
+                                log.warn("Error consultando categorías por nombre: {}", e.getMessage());
+                                return Flux.empty();
+                            })
+                            .collectMap(CategoryResponse::id);
+                    
+                    return categoriesMapMono.flatMapMany(categoryMap -> 
+                            Flux.fromIterable(products)
+                                    .map(p -> productMapper.toDto(p, categoryMap.get(p.getCategoryId())))
+                    );
+                })
                 .onErrorMap(e -> new ProductServiceException("Error al buscar productos por nombre", e));
+    }
+
+    @Override
+    public Flux<ProductResponse> findByIds(List<Long> ids) {
+        return productRepository.findByIdIn(ids)
+                .collectList()
+                .flatMapMany(products -> {
+                    if (products.isEmpty()) return Flux.empty();
+                    List<Long> categoryIds = products.stream()
+                            .map(ProductEntity::getCategoryId)
+                            .distinct()
+                            .toList();
+                    
+                    Mono<Map<Long, CategoryResponse>> categoriesMapMono = 
+                            categoryClient.findByIds(categoryIds)
+                            .onErrorResume(e -> {
+                                log.warn("Error consultando categorías para múltiples productos: {}", e.getMessage());
+                                return Flux.empty();
+                            })
+                            .collectMap(CategoryResponse::id);
+                    
+                    return categoriesMapMono.flatMapMany(categoryMap -> 
+                            Flux.fromIterable(products)
+                                    .map(p -> productMapper.toDto(p, categoryMap.get(p.getCategoryId())))
+                    );
+                })
+                .onErrorMap(e -> new ProductServiceException("Error al buscar productos por IDs", e));
     }
 
     @Override
@@ -74,6 +154,7 @@ public class ProductServiceImpl implements ProductService {
     		        .flatMap(entity -> {
     		            entity.setName(productRequest.name());
     		            entity.setDescription(productRequest.description());
+                        entity.setCategoryId(productRequest.categoryId());
     		            return productRepository.save(entity)
                                 .map(productMapper::toDto);
     		        })

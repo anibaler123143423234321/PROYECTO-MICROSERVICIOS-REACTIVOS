@@ -10,6 +10,7 @@ CREATE TABLE product (
         name         VARCHAR(60) NOT NULL,
         description  VARCHAR(400)  NOT NULL,
         state        VARCHAR(1)   NOT NULL,
+        category_id  BIGINT       NOT NULL,
 
         CONSTRAINT pk_product PRIMARY KEY (product_id),
         CONSTRAINT uq_product_name UNIQUE (name)

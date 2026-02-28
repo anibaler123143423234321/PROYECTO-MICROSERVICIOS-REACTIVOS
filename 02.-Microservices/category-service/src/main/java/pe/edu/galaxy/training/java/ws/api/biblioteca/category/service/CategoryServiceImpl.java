@@ -38,6 +38,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Flux<CategoryResponse> findByIds(java.util.List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Flux.empty();
+        }
+        return categoryRepository.findByIdIn(ids)
+                .map(categoryMapper::toDto)
+                .onErrorMap(e -> new CategoryServiceException("Error fetching categories by multiple ids", e));
+    }
+
+    @Override
     public Mono<CategoryResponse> findById(Long id) {
         return categoryRepository.findById(id)
                 .map(categoryMapper::toDto)

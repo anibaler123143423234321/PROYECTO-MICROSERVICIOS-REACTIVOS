@@ -19,6 +19,9 @@ public interface ProductRepository extends ReactiveCrudRepository<ProductEntity,
     """)
 	Flux<ProductEntity> findByName(String name);
 
+    @Query("SELECT * FROM product WHERE product_id IN (:ids) AND state = '1'")
+    Flux<ProductEntity> findByIdIn(java.util.List<Long> ids);
+
 	@Query("""
         UPDATE product
         SET state = '0'

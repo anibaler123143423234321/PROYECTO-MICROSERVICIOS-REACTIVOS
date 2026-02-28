@@ -14,7 +14,7 @@ public class StockHandlerException {
             String errorMessage,
             Long id
            ) {
-        Throwable mapped = mapDuplicateConstraint(ex, StockDetailRequest.sku(), StockDetailRequest.location());
+        Throwable mapped = mapDuplicateConstraint(ex, StockDetailRequest.quantity(), StockDetailRequest.location());
 
         if (mapped instanceof DuplicateResourceException) {
             return mapped;
@@ -28,15 +28,15 @@ public class StockHandlerException {
 
     public static Throwable mapDuplicateConstraint(
             Throwable ex,
-            String sku,
+            Integer quantity,
             String location) {
 
         String msg = ex.getMessage();
 
         if (msg != null) {
 
-            if (msg.contains("uq_stock_sku")) {
-                return new DuplicateResourceException("sku", sku);
+            if (msg.contains("uq_stock_product_provider")) {
+                return new DuplicateResourceException("product/provider", "Duplicate stock for this product and provider");
             }
 
             if (msg.contains("uq_stock_location")) {

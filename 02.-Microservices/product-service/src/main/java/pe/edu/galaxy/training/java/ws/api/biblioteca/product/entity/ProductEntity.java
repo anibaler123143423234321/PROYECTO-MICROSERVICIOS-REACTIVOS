@@ -28,5 +28,8 @@ public class ProductEntity {
     private String description;
 
     private String state;
+
+    @Column("category_id")
+    private Long categoryId;
    
 }

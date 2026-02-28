@@ -10,9 +10,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface StockRepository extends ReactiveCrudRepository<StockEntity, Long> {
 
-    @Query("SELECT * FROM stock WHERE name ILIKE :name AND state='1'")
-    Flux<StockEntity> findByName(String name);
-
     @Query("SELECT * FROM stock WHERE state='1'")
     Flux<StockEntity> findAllActive();
 

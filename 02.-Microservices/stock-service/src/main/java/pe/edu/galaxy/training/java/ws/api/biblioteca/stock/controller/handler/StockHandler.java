@@ -42,17 +42,6 @@ public class StockHandler {
                 );
     }
 
-    public Mono<ServerResponse> findByName(ServerRequest request) {
-        String name = request.queryParam("name").orElse("");
-
-        return stockService.findByName(name)
-                .collectList()
-                .flatMap(list -> list.isEmpty()
-                        ? ServerResponse.noContent().build()
-                        : ServerResponse.ok().bodyValue(list)
-                );
-    }
-
     public Mono<ServerResponse> save(ServerRequest request) {
         return request.bodyToMono(StockRequest.class)
                 .flatMap(stockService::save)

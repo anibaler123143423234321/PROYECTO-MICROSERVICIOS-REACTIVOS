@@ -21,6 +21,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import pe.edu.galaxy.training.java.ws.api.biblioteca.stock.dto.ProductResponse;
+import pe.edu.galaxy.training.java.ws.api.biblioteca.stock.service.client.ProductClient;
+import pe.edu.galaxy.training.java.ws.api.biblioteca.stock.service.client.ProviderClient;
+
 import static pe.edu.galaxy.training.java.ws.api.biblioteca.stock.service.StockErrorMessages.*;
 import static pe.edu.galaxy.training.java.ws.api.biblioteca.stock.service.StockHandlerException.handleException;
 
@@ -32,6 +36,7 @@ public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
     private final StockMapper stockMapper;
     private final ProviderClient providerClient;
+    private final ProductClient productClient;
 
     @Override
     public Flux<StockResponse> findAll() {
@@ -43,6 +48,11 @@ public class StockServiceImpl implements StockService {
                             .filter(Objects::nonNull)
                             .collect(Collectors.toSet());
 
+                    Set<Long> productIds = items.stream()
+                            .map(StockEntity::getProductId)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toSet());
+
                     Mono<Map<Long, ProviderResponse>> providersMapMono =
                             providerClient.findByIds(providerIds)
                                     .onErrorResume(e -> {
@@ -51,15 +61,26 @@ public class StockServiceImpl implements StockService {
                                     })
                                     .collectMap(ProviderResponse::id);
 
-                    return providersMapMono.flatMapMany(providersMap ->
-                            Flux.fromIterable(items)
-                                    .map(item -> {
-                                        ProviderResponse provider =
-                                                providersMap.get(item.getProviderId());
-
-                                        return stockMapper.toDto(item, provider);
+                    Mono<Map<Long, ProductResponse>> productsMapMono =
+                            productClient.findByIds(productIds)
+                                    .onErrorResume(e -> {
+                                        log.warn("Error al obtener productos para la lista de stock: {}", e.getMessage());
+                                        return Flux.empty();
                                     })
-                    );
+                                    .collectMap(ProductResponse::id);
+
+                    return Mono.zip(providersMapMono, productsMapMono)
+                            .flatMapMany(tuple -> {
+                                Map<Long, ProviderResponse> providersMap = tuple.getT1();
+                                Map<Long, ProductResponse> productsMap = tuple.getT2();
+
+                                return Flux.fromIterable(items)
+                                        .map(item -> {
+                                            ProviderResponse provider = providersMap.get(item.getProviderId());
+                                            ProductResponse product = productsMap.get(item.getProductId());
+                                            return stockMapper.toDto(item, product, provider);
+                                        });
+                            });
                 })
                 .onErrorMap(e -> {
                     if (e instanceof StockServiceException) {
@@ -73,16 +94,26 @@ public class StockServiceImpl implements StockService {
     public Mono<StockResponse> findById(Long id) {
         return stockRepository.findById(id)
                 .flatMap(item -> {
-                    if (item.getProviderId() == null) {
-                        return Mono.just(stockMapper.toDto(item));
+                    Mono<ProviderResponse> providerMono = Mono.empty();
+                    if (item.getProviderId() != null) {
+                        providerMono = providerClient.findById(item.getProviderId())
+                                .onErrorResume(e -> {
+                                    log.warn("Error al obtener el proveedor {} para el stock {}: {}", item.getProviderId(), id, e.getMessage());
+                                    return Mono.empty();
+                                });
                     }
-                    return providerClient.findById(item.getProviderId())
-                            .map(provider -> stockMapper.toDto(item, provider))
-                            .onErrorResume(e -> {
-                                log.warn("Error al obtener el proveedor {} para el stock {}: {}", 
-                                        item.getProviderId(), id, e.getMessage());
-                                return Mono.just(stockMapper.toDto(item));
-                            });
+
+                    Mono<ProductResponse> productMono = Mono.empty();
+                    if (item.getProductId() != null) {
+                        productMono = productClient.findById(item.getProductId())
+                                .onErrorResume(e -> {
+                                    log.warn("Error al obtener producto {} para el stock {}: {}", item.getProductId(), id, e.getMessage());
+                                    return Mono.empty();
+                                });
+                    }
+
+                    return Mono.zip(Mono.just(item), providerMono.defaultIfEmpty(null), productMono.defaultIfEmpty(null))
+                            .map(tuple -> stockMapper.toDto(tuple.getT1(), tuple.getT3(), tuple.getT2()));
                 })
                 .switchIfEmpty(Mono.error(
                         new StockServiceException(String.format(STOCK_NOT_FOUND_BY_ID, id))
@@ -97,44 +128,13 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Flux<StockResponse> findByName(String name) {
-        return stockRepository.findByName((name == null) ? "" : name.trim())
-                .collectList()
-                .flatMapMany(items -> {
-                    Set<Long> providerIds = items.stream()
-                            .map(StockEntity::getProviderId)
-                            .filter(Objects::nonNull)
-                            .collect(Collectors.toSet());
-
-                    Mono<Map<Long, ProviderResponse>> providersMapMono =
-                            providerClient.findByIds(providerIds)
-                                    .onErrorResume(e -> {
-                                        log.warn("Error al obtener los proveedores para la lista de stock por nombre: {}", e.getMessage());
-                                        return Flux.empty();
-                                    })
-                                    .collectMap(ProviderResponse::id);
-
-                    return providersMapMono.flatMapMany(providersMap ->
-                            Flux.fromIterable(items)
-                                    .map(item -> {
-                                        ProviderResponse provider =
-                                                providersMap.get(item.getProviderId());
-
-                                        return stockMapper.toDto(item, provider);
-                                    })
-                    );
-                })
-                .onErrorMap(e -> new StockServiceException(ERROR_FIND_STOCK_BY_NAME, e));
-    }
-
-    @Override
     public Mono<Void> save(StockRequest stockRequest) {
         StockEntity stockEntity = stockMapper.toEntity(stockRequest);
         stockEntity.setState("1");
         return stockRepository.save(stockEntity)
                 .then()
                 .onErrorMap(ex -> handleException(ex,
-                        new StockDetailRequest(stockRequest.sku(), stockRequest.location()),
+                        new StockDetailRequest(stockRequest.quantity(), stockRequest.location()),
                         ERROR_SAVE_STOCK, null));
     }
 
@@ -146,16 +146,15 @@ public class StockServiceImpl implements StockService {
                                 String.format(STOCK_NOT_FOUND_BY_ID, id))
                 ))
                 .flatMap(entity -> {
-                    entity.setName(stockRequest.name());
-                    entity.setDescription(stockRequest.description());
-                    entity.setSku(stockRequest.sku());
+                    entity.setProductId(stockRequest.productId());
+                    entity.setQuantity(stockRequest.quantity());
                     entity.setLocation(stockRequest.location());
                     entity.setProviderId(stockRequest.providerId());
                     return stockRepository.save(entity);
                 })
                 .then()
                 .onErrorMap(ex -> handleException(ex,
-                        new StockDetailRequest(stockRequest.sku(), stockRequest.location()),
+                        new StockDetailRequest(stockRequest.quantity(), stockRequest.location()),
                         ERROR_UPDATE_STOCK, id));
     }
 
@@ -166,7 +165,7 @@ public class StockServiceImpl implements StockService {
                         new StockServiceException(String.format(STOCK_NOT_FOUND_BY_ID, id))
                 ))
                 .flatMap(entity -> {
-                    entity.setSku(stockDetailRequest.sku());
+                    entity.setQuantity(stockDetailRequest.quantity());
                     entity.setLocation(stockDetailRequest.location());
                     return stockRepository.save(entity);
                 })

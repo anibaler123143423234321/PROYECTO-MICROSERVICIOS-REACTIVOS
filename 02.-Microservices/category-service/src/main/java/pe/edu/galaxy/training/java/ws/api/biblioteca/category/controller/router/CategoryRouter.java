@@ -16,6 +16,7 @@ public class CategoryRouter {
     public RouterFunction<ServerResponse> categoryRoutes(CategoryHandler handler) {
         return route(GET("/api/v1/categories/all"), handler::findAll)
                 .andRoute(GET("/api/v1/categories/by-name"), handler::findByName)
+                .andRoute(GET("/api/v1/categories/by-ids"), handler::findByIds)
                 .andRoute(GET("/api/v1/categories/{id}"), handler::findById)
                 .andRoute(POST("/api/v1/categories"), handler::save)
                 .andRoute(PUT("/api/v1/categories/{id}"), handler::update)

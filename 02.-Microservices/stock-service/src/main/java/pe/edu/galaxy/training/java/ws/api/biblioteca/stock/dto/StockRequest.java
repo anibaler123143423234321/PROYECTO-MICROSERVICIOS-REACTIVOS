@@ -4,16 +4,13 @@ import jakarta.validation.constraints.*;
 
 public record StockRequest(
 	
-	@NotBlank(message = "Name is required")
-    @Size(min = 3, max = 50, message = "Name must have {min} characters and must not exceed {max} characters")
-    String name,
+    @NotNull(message = "Product id is required")
+    @Positive
+    Long productId,
 
-    @NotBlank(message = "Description is required")
-    @Size(min = 3, max = 100, message = "Description must have {min} characters and must not exceed {max} characters")
-    String description,
-
-    @NotBlank(message = "SKU is required")
-    String sku,
+    @NotNull(message = "Quantity is required")
+    @PositiveOrZero
+    Integer quantity,
 
     @NotBlank(message = "Location is required")
     String location,

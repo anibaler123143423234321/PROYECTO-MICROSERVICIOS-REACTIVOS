@@ -20,6 +20,7 @@ public class ProductRouter {
 
                         .GET("/all", handler::findAll)
                         .GET("/by-name", handler::findByName)
+                        .GET("/by-ids", handler::findByIds)
 
                         .GET("/{id}", handler::findById)
 

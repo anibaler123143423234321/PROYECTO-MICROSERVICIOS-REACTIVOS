@@ -10,4 +10,6 @@ public interface ProductMapper {
 
     ProductResponse toDto(ProductEntity productEntity);
 
+    ProductResponse toDto(ProductEntity productEntity, pe.edu.galaxy.training.java.ws.api.biblioteca.product.dto.CategoryResponse categoryResponse);
+
 }

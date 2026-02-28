@@ -20,14 +20,11 @@ public class StockEntity {
     @Column("stock_id")
     private Long id;
 
-	@Column("name")
-    private String name;
+	@Column("product_id")
+    private Long productId;
 
-	@Column("description")
-    private String description;
-
-    @Column("sku")
-    private String sku;
+    @Column("quantity")
+    private Integer quantity;
 
     @Column("location")
     private String location;

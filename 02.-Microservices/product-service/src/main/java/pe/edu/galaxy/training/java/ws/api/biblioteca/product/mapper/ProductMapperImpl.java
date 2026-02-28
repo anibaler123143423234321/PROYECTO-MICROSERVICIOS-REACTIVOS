@@ -13,6 +13,7 @@ public class ProductMapperImpl implements ProductMapper {
                 .builder()
                 .name(request.name())
                 .description(request.description())
+                .categoryId(request.categoryId())
                 .build();
     }
 
@@ -23,6 +24,17 @@ public class ProductMapperImpl implements ProductMapper {
                 .id(productEntity.getId())
                 .name(productEntity.getName().toUpperCase())
                 .description(productEntity.getDescription())
+                .build();
+    }
+
+    @Override
+    public ProductResponse toDto(ProductEntity productEntity, pe.edu.galaxy.training.java.ws.api.biblioteca.product.dto.CategoryResponse categoryResponse) {
+        return ProductResponse
+                .builder()
+                .id(productEntity.getId())
+                .name(productEntity.getName().toUpperCase())
+                .description(productEntity.getDescription())
+                .category(categoryResponse)
                 .build();
     }
 

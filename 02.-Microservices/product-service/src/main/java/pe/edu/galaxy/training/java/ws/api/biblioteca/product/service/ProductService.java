@@ -14,6 +14,8 @@ public interface ProductService {
 	Flux<ProductResponse> findAll();
 	
 	Flux<ProductResponse> findByName(String name);
+
+	Flux<ProductResponse> findByIds(java.util.List<Long> ids);
 	
 	Mono<ProductResponse> save(ProductRequest productRequest);
 	

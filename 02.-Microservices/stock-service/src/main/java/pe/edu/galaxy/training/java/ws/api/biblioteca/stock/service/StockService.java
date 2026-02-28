@@ -12,8 +12,6 @@ public interface StockService {
 
 	Flux<StockResponse> findAll();
 	
-	Flux<StockResponse> findByName(String name);
-	
 	Mono<Void> save(StockRequest stockRequest);
 	
 	Mono<Void> update(Long id, StockRequest stockRequest);

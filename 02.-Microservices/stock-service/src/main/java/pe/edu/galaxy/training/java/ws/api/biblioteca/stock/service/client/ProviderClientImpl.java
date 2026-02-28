@@ -30,7 +30,7 @@ public class ProviderClientImpl implements ProviderClient {
     @TimeLimiter(name = "providerService")
     public Mono<ProviderResponse> findById(Long id) {
         return webClient.get()
-                .uri("/{id}", id)
+                .uri("/api/v1/providers/{id}", id)
                 .retrieve()
                 .onStatus(
                         HttpStatusCode::is5xxServerError,
@@ -75,7 +75,7 @@ public class ProviderClientImpl implements ProviderClient {
         }
         return webClient.get()
                 .uri(uriBuilder -> {
-                    uriBuilder.path("/by-ids");
+                    uriBuilder.path("/api/v1/providers/by-ids");
                     ids.forEach(id -> uriBuilder.queryParam("ids", id));
                     return uriBuilder.build();
                 })

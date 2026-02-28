@@ -5,9 +5,8 @@ import lombok.Builder;
 @Builder
 public record StockResponse(
         Long id,
-        String name,
-        String description,
-        String sku,
+        ProductResponse product,
+        Integer quantity,
         String location,
         ProviderResponse provider
 ) {

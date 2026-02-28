@@ -50,4 +50,6 @@ logging:
 
 service:
   providers:
-    url: http://${SERVICE_PROVIDERS:localhost}:8083/api/v1/providers
+    url: http://${SERVICE_PROVIDERS:localhost}:8083
+  products:
+    url: http://${SERVICE_PRODUCTS:localhost}:8081

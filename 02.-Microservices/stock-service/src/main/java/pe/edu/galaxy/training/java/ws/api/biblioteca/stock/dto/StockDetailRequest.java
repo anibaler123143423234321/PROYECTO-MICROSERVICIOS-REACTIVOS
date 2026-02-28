@@ -4,8 +4,9 @@ import jakarta.validation.constraints.*;
 
 public record StockDetailRequest(
 
-    @NotBlank(message = "SKU is required")
-    String sku,
+    @NotNull(message = "Quantity is required")
+    @PositiveOrZero
+    Integer quantity,
 
     @NotBlank(message = "Location is required")
     String location
